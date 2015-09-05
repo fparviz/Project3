@@ -1,12 +1,12 @@
-var playerX = 200;
-var playerY = 400;
-var enemyX = 10;
-var enemyY = [60,150,200];
-var enemyCount = 3;
-var enemySpeed = [120,130,140,150];
-var canvasX = 500;
-var width = 101;
-var height = 83;
+var PLAYER_X = 200,
+PLAYER_Y = 400,
+ENEMY_X = 10,
+ENEMY_Y = [60,150,230],
+ENEMY_COUNT = 3,
+ENEMY_SPEED = [120,130,140,150],
+CANVAS_X = 500,
+WIDTH = 101,
+HEIGHT = 83
 
 function randomNum(num) {
     return Math.floor(Math.random() * num);
@@ -14,22 +14,22 @@ function randomNum(num) {
 
 // Enemies our player must avoid
 var Enemy = function() {
-    this.x = enemyX;
-    this.y = enemyY[randomNum(enemyY.length)];
-    this.speed = enemySpeed[randomNum(enemySpeed.length)];
+    this.x = ENEMY_X;
+    this.y = ENEMY_Y[randomNum(ENEMY_Y.length)];
+    this.speed = ENEMY_SPEED[randomNum(ENEMY_SPEED.length)];
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-}
+};
 
 //Enemy reset
 Enemy.prototype.reset = function() {
-    this.x = enemyX;
-    this.y = enemyY[randomNum(enemyY.length)];
-    this.speed = enemySpeed[randomNum(enemySpeed.length)];
+    this.x = ENEMY_X;
+    this.y = ENEMY_Y[randomNum(ENEMY_Y.length)];
+    this.speed = ENEMY_SPEED[randomNum(ENEMY_SPEED.length)];
 };
 
 // Update the enemy's position, required method for game
@@ -39,7 +39,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x = this.x + this.speed * dt;
-     if (this.x > canvasX) {
+     if (this.x > CANVAS_X) {
         this.reset();
     }
     if ((Math.abs(this.x - Player.x) < 90) && (Math.abs(this.y - Player.y) < 70)) {
@@ -59,7 +59,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 
 Enemy.prototype.collision = function(enemy, player) {
@@ -67,12 +67,13 @@ Enemy.prototype.collision = function(enemy, player) {
         player.right < enemy.left ||
         player.top > enemy.bottom ||
         player.bottom < enemy.top);
-}
+};
+
 Enemy.prototype.collisionsCheck = function(enemy, player) {
     if (this.collision(enemy, player)) {
         player.reset();
     }
-}
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -83,14 +84,14 @@ var Player = function() {
 };
 
 Player.prototype.update = function(dt) {
-    if (this.x >= canvasX) {
+    if (this.x >= CANVAS_X) {
         this.x = (this.x - width);
     }
     if (this.x <= 0) {
         this.x = 0;
     }
-    if (this.y >= playerY) {
-        this.y = playerY;
+    if (this.y >= PLAYER_Y) {
+        this.y = PLAYER_Y;
     }
     if (this.y <= 0) {
         this.reset();
@@ -112,16 +113,16 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(keyCode) {
     switch (keyCode) {
         case 'left':
-            this.x -= width;
+            this.x -= WIDTH;
             break;
         case 'right':
-            this.x += width;
+            this.x += WIDTH;
             break;
         case 'up':
-            this.y -= height;
+            this.y -= HEIGHT;
             break;
         case 'down':
-            this.y += height;
+            this.y += HEIGHT;
             break;
         default:
             break;
@@ -129,8 +130,8 @@ Player.prototype.handleInput = function(keyCode) {
 };
 
 Player.prototype.reset = function() {
-    this.x = playerX;
-    this.y = playerY;
+    this.x = PLAYER_X;
+    this.y = PLAYER_Y;
 };
 
 
@@ -139,7 +140,7 @@ Player.prototype.reset = function() {
 // Place the player object in a variable called player
 var player = new Player();
 var allEnemies = [];
-for (var i = 0; i < enemyCount; i++) {
+for (var i = 0; i < ENEMY_COUNT; i++) {
     allEnemies.push(new Enemy());
 };
 
