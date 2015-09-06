@@ -10,7 +10,13 @@ Resources used for project:
 3. Udacity P3 Forum discussions  
 
 
-How to run the Game:  
+How to Run:
+
+1. Visit my GitHub Page https://github.com/fparviz/Project3
+2. Open the file 'index.html'
+3. And play the game!
+
+How to Play the Game:  
 
 1. Around three lady bugs will appear on screen at a time  
 2. The user has to move the right, left,up,and down arrows to navigate  
